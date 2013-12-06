@@ -10,13 +10,15 @@ class Grid
     @cells = Hash.new(:dead)
   end
 
-  def seed(num_of_live_cells)
-    1.upto num_of_live_cells do
+  def seed(num_of_alive_cells)
+    1.upto num_of_alive_cells do
       cells[random_dead_cell] = :alive
     end
   end
 
   def cell_at(x, y)
+    return :outside if outside_grid?(x, y)
+
     cells[ [x, y] ]
   end
 
@@ -32,10 +34,14 @@ class Grid
     counts
   end
 
+  def max_index(dimension)
+    public_send(dimension) - 1
+  end
+
   private
 
-    def max_index(dimension)
-      public_send(dimension) - 1
+    def outside_grid?(x, y)
+      x < 0 || x > max_index(:width) || y < 0 || y > max_index(:height)
     end
 
     def validate_dimension(size)
