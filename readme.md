@@ -1,7 +1,7 @@
 Conway's Game of Life
 =====================
 
-This is an implementation of [Conway's Game of Life](http://en.wikipedia.org/wiki/Conway's_Game_of_Life) which I'm using to try out a different TDD workflow.
+This is an implementation of [Conway's Game of Life](http://en.wikipedia.org/wiki/Conway's_Game_of_Life) which I'm using to try out a different TDD workflow and just hack around on.
 
 Rules
 -----
@@ -35,3 +35,7 @@ Patterns
 --------
 
 If you run the simulation you will eventually get to a state where you start seeing some common patterns. See the [examples of patterns](http://en.wikipedia.org/wiki/Conway's_Game_of_Life#Examples_of_patterns) on Wikipedia.
+
+Here is a screenshot from this implementation:
+
+![Profile picture](https://raw.github.com/andypike/game_of_life/master/game_of_life_patterns.png)
