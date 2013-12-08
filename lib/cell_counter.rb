@@ -19,4 +19,14 @@ class CellCounter
 
     neighbours
   end
+
+  def count_cells
+    counts = Hash.new(0)
+
+    grid.each_cell do |x, y|
+      counts[grid.cell_at(x, y)] += 1
+    end
+
+    counts
+  end
 end

@@ -22,23 +22,54 @@ class Grid
     cells[ [x, y] ]
   end
 
-  def count_cells
-    counts = Hash.new(0)
+  def change_cell(x, y, to: :alive)
+    return if outside_grid?(x, y)
 
-    0.upto max_index(:width) do |x|
-      0.upto max_index(:height) do |y|
-        counts[cell_at(x, y)] += 1
-      end
-    end
-
-    counts
+    cells[ [x, y] ] = to
   end
 
-  def max_index(dimension)
-    public_send(dimension) - 1
+  def each_cell
+    each_row do |y|
+      each_column do |x|
+        yield(x, y)
+      end
+    end
+  end
+
+  def each_row
+    0.upto max_index(:height) do |y|
+      yield(y)
+    end
+  end
+
+  def each_column
+    0.upto max_index(:width) do |x|
+      yield(x)
+    end
+  end
+
+  def no_alive_cells?
+    alive_cells == 0
+  end
+
+  def alive_cells
+    num_of_cell_that_are :alive
+  end
+
+  def dead_cells
+    num_of_cell_that_are :dead
   end
 
   private
+
+    def num_of_cell_that_are(state)
+      counter = CellCounter.new(self)
+      counter.count_cells[state]
+    end
+
+    def max_index(dimension)
+      public_send(dimension) - 1
+    end
 
     def outside_grid?(x, y)
       x < 0 || x > max_index(:width) || y < 0 || y > max_index(:height)

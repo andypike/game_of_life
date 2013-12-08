@@ -31,4 +31,23 @@ describe CellCounter do
       expect(counter.neighbours_of(0, 1)).to eq(:alive => 2, :dead => 3, :outside => 3)
     end
   end
+
+  describe "#count_cells" do
+    let(:grid) { Grid.new(3, 3) }
+    subject(:counter) { CellCounter.new(grid) }
+
+    before do
+      grid.cells[ [0, 0] ] = :alive
+      grid.cells[ [1, 1] ] = :alive
+      grid.cells[ [2, 2] ] = :alive
+    end
+
+    it "counts the total number of alive cells" do
+      expect(counter.count_cells[:alive]).to eq(3)
+    end
+
+    it "counts the total number of dead cells" do
+      expect(counter.count_cells[:dead]).to eq(6)
+    end
+  end
 end

@@ -9,9 +9,9 @@ class GridRenderer
   def render(grid)
     output.clear
 
-    0.upto(grid.max_index(:height)) do |y|
+    grid.each_row do |y|
       line = ""
-      0.upto(grid.max_index(:width)) do |x|
+      grid.each_column do |x|
         line += SPRITES[grid.cell_at(x, y)]
       end
       output.puts(line)

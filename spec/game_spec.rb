@@ -13,7 +13,7 @@ describe Game do
   describe "#new_game" do
     it "seeds the grid" do
       game.new_game(10)
-      expect(game.grid.count_cells[:alive]).to eq(10)
+      expect(game.grid.alive_cells).to eq(10)
     end
   end
 

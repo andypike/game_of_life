@@ -72,32 +72,14 @@ describe Grid do
     end
   end
 
-  describe "#count_cells" do
-    subject(:grid) { Grid.new(3, 3) }
-
-    before do
-      grid.cells[ [0, 0] ] = :alive
-      grid.cells[ [1, 1] ] = :alive
-      grid.cells[ [2, 2] ] = :alive
-    end
-
-    it "counts the total number of alive cells" do
-      expect(grid.count_cells[:alive]).to eq(3)
-    end
-
-    it "counts the total number of dead cells" do
-      expect(grid.count_cells[:dead]).to eq(6)
-    end
-  end
-
   describe "#seed" do
     subject(:grid) { Grid.new 10, 10 }
 
     it "populates the grid with the correct number of live cells" do
       grid.seed(10)
 
-      expect(grid.count_cells[:alive]).to eq(10)
-      expect(grid.count_cells[:dead]).to eq(90)
+      expect(grid.alive_cells).to eq(10)
+      expect(grid.dead_cells).to eq(90)
     end
   end
 end

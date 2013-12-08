@@ -8,11 +8,11 @@ class Game
 
   def new_game(num_of_live_cells)
     grid.seed(num_of_live_cells)
-    renderer.render(grid)
+    update_display
   end
 
   def game_over?
-    grid.count_cells[:alive] == 0
+    grid.no_alive_cells?
   end
 
   def run
@@ -22,15 +22,20 @@ class Game
       next_grid = Grid.new(grid.width, grid.height)
       next_generation = NextGeneration.new(grid)
 
-      0.upto(grid.max_index(:height)) do |y|
-        0.upto(grid.max_index(:width)) do |x|
-          next_grid.cells[ [x, y] ] = next_generation.destiny(x, y)
-        end
+      grid.each_cell do |x, y|
+        next_state = next_generation.destiny(x, y)
+        next_grid.change_cell(x, y, to: next_state)
       end
 
       @grid = next_grid
 
-      renderer.render(grid)
+      update_display
     end
   end
+
+  private
+
+    def update_display
+      renderer.render(grid)
+    end
 end
