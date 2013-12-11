@@ -1,17 +1,17 @@
 class Game
   attr_reader :grid, :renderer
 
-  def initialize(width, height, output = TerminalOutput.new)
-    @grid = Grid.new(width, height)
+  def initialize(output = TerminalOutput.new)
     @renderer = GridRenderer.new(output)
   end
 
-  def new_game(num_of_live_cells)
-    grid.seed(num_of_live_cells)
+  def new_game(starting_grid)
+    @grid = starting_grid
     update_display
   end
 
   def game_over?
+    raise "You must supply a starting grid using #new_game" if grid.nil?
     grid.no_alive_cells?
   end
 
